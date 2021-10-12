@@ -60,7 +60,7 @@ async function crawlListData() {
         return arr;
       }
     );
-    const fileData = fs.readFileSync("./data.json");
+    const fileData = fs.readFileSync(__dirname+"/data.json");
     const fileData_format = fileData.toString();
     const fileData_format2 = JSON.parse(fileData_format);
     // const data_format = data.flat(Infinity);
@@ -71,7 +71,7 @@ async function crawlListData() {
         fileData_format2.push(item);
       }
     });
-    fs.writeFileSync("./data.json", JSON.stringify(fileData_format2));
+    fs.writeFileSync(__dirname+"/data.json", JSON.stringify(fileData_format2));
   }
 
   await browser.close();
@@ -83,7 +83,7 @@ async function crawl_detail({ addressElement }) {
   });
   const page = await browser.newPage();
   //
-  const fileData = fs.readFileSync("./data.json");
+  const fileData = fs.readFileSync(__dirname+"/data.json");
   const fileData_format = fileData.toString();
   const list_href = JSON.parse(fileData_format);
   //
@@ -126,7 +126,12 @@ async function crawl_detail({ addressElement }) {
       );
     }
     a.link = `https://nha.chotot.com${item}`;
-    console.log(a);
+    // console.log(a);
+    const fileData = fs.readFileSync(__dirname+"/data_detail.json");
+    const fileData_format = fileData.toString();
+    const fileData_format2 = JSON.parse(fileData_format);
+    fileData_format2.push(a);
+    fs.writeFileSync(__dirname+"/data_detail.json", JSON.stringify(fileData_format2));
   }
   await browser.close();
 }
