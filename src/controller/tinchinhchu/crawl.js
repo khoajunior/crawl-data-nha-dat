@@ -1,6 +1,6 @@
 "use strict";
 const puppeteer = require("puppeteer");
-
+require("dotenv").config();
 /**
  *
  */
@@ -34,32 +34,39 @@ async function main() {
       secure: false,
       session: true,
       storeId: "1",
-      value:
-        "5C2B1AF60096B7640A1DBFB5631049711740C9AA197A83E6E6466BA6368F127840A411C2953339017BFA4E557AF0FB24F7B95FA7D25BB6C3F4CA4F9C8E321403275F7A3EAC6CA9308EC1CAE6C67A138140149C411C7B197CFBEABA4F8A807489DA97D897B2A7D62A827240E9BC6AD41E933A7603",
+      value: process.env.COOKIE,
     });
     await page.goto("http://hcm.tinchinhchu.vn/", {
       waitUntil: "networkidle2",
     });
 
-   const text= await page.$$eval(
-      "#dnn_ctr453_View_ctl00_grvNews > tbody > tr[align='left']",
-      (items) => {
-        return items.map((item) => {
-         try {
-          // console.log(item.textContent());
-          return item.textContent.trim();
-         } catch (error) {
-           return null
-         }
-        });
-      }
-    );
-    console.log(text);
+    //  const text= await page.$$eval(
+    //     "#dnn_ctr453_View_ctl00_grvNews > tbody > tr",
+    //     (items) => {
+    //       return items.map((item) => {
+    //        try {
+    //          const tdEle= document.querySelector('td.columTitle > a').getAttribute('href');
+    //         // return item.textContent.trim();
+    //         return tdEle;
+    //        } catch (error) {
+    //          return null
+    //        }
+    //       });
+    //     }
+    //   );
+    //   console.log(text);
+    for (let i = 0; i < 22; i++) {
+      await page.click(`#dnn_ctr453_View_ctl00_grvNews_hplDetails_${i}`, {
+        delay: 100,
+        waitUntil:"networkidle2"
+      });
+      await page.click("#fancybox-close", { delay: 100 });
+    }
     await browser.close();
   } catch (error) {
     await browser.close();
     console.log(error);
   }
 }
-main();
+// main();
 module.exports = { main };

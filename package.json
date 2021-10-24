@@ -5,7 +5,9 @@
   "scripts": {
     "start": "node ./bin/www",
     "dev": "nodemon ./bin/www",
-    "start-chotot":"node src/controller/crawl_chotot.js"
+    "start-chotot": "node src/controller/crawl_chotot.js",
+    "start-chotot-detail":"node src/controller/crawl_chotot_detail.js",
+    "start-tinchinhchu": "node src/controller/tinchinhchu/crawl.js"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
