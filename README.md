@@ -16,3 +16,7 @@ yarn start-chotot-detail
 ```
 Để crawl chi tiết bài đăng để lấy được dữ liệu dc lưu ở file data_detail.json (src/controller/data_detail.json)
 
+Chỉnh số trong muốn cào trong file .env
+```
+LOOP=2
+```
